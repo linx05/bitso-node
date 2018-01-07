@@ -1,0 +1,37 @@
+{
+  "name": "bitso-node",
+  "version": "1.0.0",
+  "description": "Node.js Bitso Client",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "mocha --recursive --check-leaks --full-trace --reporter spec \"src/**/*.test.js\"",
+    "test:watch": "npm run test -- --watch",
+    "dev": "webpack-dev-server --config ./webpack.config.js --watch",
+    "build": "rm -rf dist && webpack --config ./webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linx05/bitso-node.git"
+  },
+  "keywords": ["bitcoin", "bitso", "xrp", "ethereum", "mxn"],
+  "author": "Cesar Laredo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/linx05/bitso-node/issues"
+  },
+  "homepage": "https://github.com/linx05/bitso-node#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "chai": "^4.1.2",
+    "eslint": "^4.14.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "mocha": "^4.1.0"
+  },
+  "dependencies": {
+    "install": "^0.10.2",
+    "node-fetch": "^1.7.3",
+    "npm": "^5.6.0"
+  }
+}
