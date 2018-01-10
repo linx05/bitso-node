@@ -1,20 +1,21 @@
 const Ajax = require('../services/BitsoAjax');
+const PublicApi = require('./public');
+const constants = require('./const');
 
 const BitsoClient = ({
   key,
   secret,
   host = 'https://api.bitso.com/',
   version = 'v3',
-} = {}) => {
+} = {}, test = false) => {
+  if (test) {
+    host = 'https://api-dev.bitso.com/'; // eslint-disable-line no-param-reassign
+  }
   const api = Ajax({ host, version, key, secret });
-
-  this.availableBooks = () => {
-    return api.get({ url: '/available_books' })
-      .then((res) => {
-        return res;
-      });
+  return {
+    ...constants,
+    public: PublicApi(api),
   };
-  return this;
 };
 
 module.exports = BitsoClient;
