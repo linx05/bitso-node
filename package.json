@@ -1,5 +1,5 @@
 {
-  "name": "bitso-node",
+  "name": "bitso-node-api",
   "version": "1.0.0",
   "description": "Node.js Bitso Client",
   "main": "./src/index.js",
