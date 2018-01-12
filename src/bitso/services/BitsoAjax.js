@@ -1,5 +1,5 @@
-const crypto = require('crypto');
 const Ajax = require('../../services/ajax');
+const { generateSignature } = require('../helpers/signing');
 
 function NeedsSecurityCredentialsError(message) {
   this.name = 'NeedsSecurityCredentialsError';
@@ -10,13 +10,11 @@ NeedsSecurityCredentialsError.prototype = Error.prototype;
 const BitsoAjax = ({ host, version, key, secret }) => {
   const api = Ajax(host + version);
 
-  const authToken = ({ method, endpoint }) => {
-    const nonce = new Date().getTime();
-    const data = `${nonce}${method}/${version}/${endpoint}/`;
-    return `Bitso ${key}:${nonce}:${crypto.createHmac('sha256', secret).update(data).digest('hex')}`;
+  const authToken = ({ method, endpoint, payload }) => {
+    return generateSignature({ version, method, endpoint, payload, key, secret });
   };
 
-  const getHeaders = (priv, { method, endpoint }) => {
+  const getHeaders = (priv, { method, endpoint, payload }) => {
     let additionalHeaders = {};
     if (priv) {
       if (!key || !secret) {
@@ -26,6 +24,7 @@ const BitsoAjax = ({ host, version, key, secret }) => {
         Authorization: authToken({
           method,
           endpoint,
+          payload,
         }),
       });
     }
@@ -45,6 +44,7 @@ const BitsoAjax = ({ host, version, key, secret }) => {
     const reqHeaders = Object.assign({}, getHeaders(priv, {
       method: 'POST',
       endpoint: url,
+      payload: data,
     }), headers);
     return api.post(url, data, reqHeaders);
   };
@@ -53,6 +53,7 @@ const BitsoAjax = ({ host, version, key, secret }) => {
     const reqHeaders = Object.assign({}, getHeaders(priv, {
       method: 'PUT',
       endpoint: url,
+      payload: data,
     }), headers);
     return api.put(url, data, reqHeaders);
   };
