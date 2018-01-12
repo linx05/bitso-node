@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const Ajax = require('../services/ajax');
+const Ajax = require('../../services/ajax');
 
 function NeedsSecurityCredentialsError(message) {
   this.name = 'NeedsSecurityCredentialsError';
@@ -12,7 +12,7 @@ const BitsoAjax = ({ host, version, key, secret }) => {
 
   const authToken = ({ method, endpoint }) => {
     const nonce = new Date().getTime();
-    const data = `${nonce}${method}/${version}/${endpoint.path}/`;
+    const data = `${nonce}${method}/${version}/${endpoint}/`;
     return `Bitso ${key}:${nonce}:${crypto.createHmac('sha256', secret).update(data).digest('hex')}`;
   };
 
