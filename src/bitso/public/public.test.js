@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const publicClient = require('./index');
+const publicClient = require('./public');
 
 describe('Bitso Public Client Tests', () => {
   const mockApi = {
