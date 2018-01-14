@@ -12,12 +12,20 @@ describe('Bitso Private Client Tests', () => {
     delete: () => Promise.resolve(),
   };
   const client = privateClient(mockApi);
-  it('Should create an object with "accountStatus" functions', () => {
-    expect(client).to.have.keys('accountStatus');
+  it('Should create an object with "accountStatus", "accountBalance", "bankCodes", "fees", "fundingDestination" functions', () => {
+    expect(client).to.have.keys('accountStatus', 'accountBalance', 'bankCodes', 'fees', 'fundingDestination');
     expect(client.accountStatus).to.be.a('function');
+    expect(client.accountBalance).to.be.a('function');
+    expect(client.bankCodes).to.be.a('function');
+    expect(client.fees).to.be.a('function');
+    expect(client.fundingDestination).to.be.a('function');
   });
-  it('"accountStatus" functions should return a Promise', () => {
+  it('"accountStatus", "accountBalance", "bankCodes", "fees", "fundingDestination" functions should return a Promise', () => {
     expect(client.accountStatus()).to.be.a('promise');
+    expect(client.accountBalance()).to.be.a('promise');
+    expect(client.bankCodes()).to.be.a('promise');
+    expect(client.fees()).to.be.a('promise');
+    expect(client.fundingDestination()).to.be.a('promise');
   });
   it('"accountStatus" should return a valid payload on successful result', () => {
     const payload = {
