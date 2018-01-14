@@ -5,7 +5,7 @@
 A Node.js API Wrapper for the [Bitso REST API](https://bitso.com/api_info). Please refer to [their documentation](https://bitso.com/api_info) for the responses and parameters.
 
 ```javascript
-var BitsoNode = require('bitso-node');
+var BitsoNode = require('bitso-node-api');
 // Key and Secret are only necessary if you use the Private REST API
 var bitsoClient = new BitsoNode({ 
   key: '1234',
@@ -19,6 +19,52 @@ bitsoClient
     console.log(books.prices);
   });
 
+```
+
+##How to Use
+
+```javascript
+const BitsoNode = require('bitso-node-api');
+
+const client = new BitsoNode({
+  key: "KEY",
+  secret: "SECRET",
+});
+
+// Public API
+client.public.ticker({
+  book: BitsoNode.exchanges.BTC_MXN
+})
+  .then(res => console.log(res))
+  .catch(err => console.log(err));
+  
+// Private API
+client.private.accountStatus()
+  .then(res => console.log(res))
+  .catch(err => console.log(err));
+```
+
+To use private API methods that move any currency or change account
+information you need to create the API client with the `authorizeMovements` parameter ser to true.
+
+(REMEMBER TO USE AT YOUR OWN RISK!)
+```javascript
+const BitsoNode = require('bitso-node-api');
+
+const client = new BitsoNode({
+  key: "KEY",
+  secret: "SECRET",
+  authorizeMovements: true
+});
+
+client.private.placeOrder({
+  book: BitsoNode.exchanges.BTC_MXN,
+  side: 'buy',
+  type: 'market',
+  minor: '10000',
+})
+  .then(res => console.log(res))
+  .catch(err => console.log(err));
 ```
 
 # License
