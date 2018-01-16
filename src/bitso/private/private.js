@@ -2,6 +2,14 @@ function PrivateApi(api) {
   const get = (obj) => {
     return api.get(Object.assign({}, obj, { priv: true }));
   };
+  const separateOperationItems = (items) => {
+    const itemsArray = Array.isArray(items) ? [...items] : [items];
+    let itemsString;
+    if (items) {
+      itemsString = itemsArray.join('-');
+    }
+    return itemsString;
+  };
 
   const accountStatus = () => {
     return get({ url: '/account_status' });
@@ -15,6 +23,11 @@ function PrivateApi(api) {
   const fees = () => {
     return get({ url: '/fees' });
   };
+  const fundings = ({ fid, limit } = {}) => {
+    const fidString = separateOperationItems(fid);
+    const limitString = limit ? `?limit=${limit}` : '';
+    return get({ url: `/fundings/${fidString}${limitString}` });
+  };
   const fundingDestination = () => {
     return get({ url: '/funding_destination' });
   };
@@ -26,15 +39,35 @@ function PrivateApi(api) {
     const request = `/ledger/${ledgerString}${markerString}${sortString}${limitString}`;
     return get({ url: request });
   };
-
+  const orderTrades = ({ oid } = {}) => {
+    const oidString = separateOperationItems(oid);
+    return get({ url: `/order_trades/${oidString}` });
+  };
+  const userTrades = ({ tid, marker, sort, limit } = {}) => {
+    const tidString = separateOperationItems(tid);
+    const markerString = marker ? `&marker=${marker}` : '';
+    const sortString = sort ? `&sort=${sort}` : '';
+    const limitString = limit ? `&limit=${limit}` : '';
+    const request = `/user_trades/${tidString}/?${markerString}${sortString}${limitString}`;
+    return get({ url: request });
+  };
+  const withdrawals = ({ wid, limit } = {}) => {
+    const widString = separateOperationItems(wid);
+    const limitString = limit ? `?limit=${limit}` : '';
+    return get({ url: `/withdrawals/${widString}${limitString}` });
+  };
 
   return {
     accountStatus,
     accountBalance,
     bankCodes,
     fees,
+    fundings,
     fundingDestination,
     ledger: Ledger,
+    orderTrades,
+    userTrades,
+    withdrawals,
   };
 }
 
