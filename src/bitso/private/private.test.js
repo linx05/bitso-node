@@ -12,8 +12,8 @@ describe('Bitso Private Client Tests', () => {
     delete: () => Promise.resolve(),
   };
   const client = privateClient(mockApi);
-  it('Should create an object with "accountStatus", "accountBalance", "bankCodes", "fees", "fundingDestination" functions', () => {
-    expect(client).to.have.keys('accountStatus', 'accountBalance', 'bankCodes', 'fees', 'fundingDestination');
+  it('Should create an object with "accountStatus", "accountBalance", "bankCodes", "fees", "fundingDestination", "ledger" functions', () => {
+    expect(client).to.have.keys('accountStatus', 'accountBalance', 'bankCodes', 'fees', 'fundingDestination', 'ledger');
     expect(client.accountStatus).to.be.a('function');
     expect(client.accountBalance).to.be.a('function');
     expect(client.bankCodes).to.be.a('function');

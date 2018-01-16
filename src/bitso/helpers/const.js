@@ -24,4 +24,10 @@ module.exports = {
     LTC_XRP: 'ltc_xrp',
     LTC_MXN: 'ltc_mxn',
   },
+  ledgers: {
+    TRADES: 'trades',
+    FEES: 'fees',
+    FUNDINGS: 'fundings',
+    WITHDRAWLS: 'withdrawals',
+  },
 };

@@ -1,5 +1,6 @@
 const Ajax = require('./services/BitsoAjax');
 const PublicApi = require('./public/public');
+const PrivateApi = require('./private/private');
 const constants = require('./helpers/const');
 
 const BitsoClient = ({
@@ -15,6 +16,7 @@ const BitsoClient = ({
   return {
     ...constants,
     public: PublicApi(api),
+    private: PrivateApi(api),
   };
 };
 

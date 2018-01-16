@@ -12,7 +12,7 @@ function PublicApi(api) {
   const trades = ({ book, marker, sort, limit } = {}) => {
     const markerString = marker ? `&marker=${marker}` : '';
     const sortString = sort ? `&sort=${sort}` : '';
-    const limitString = sort ? `&sort=${limit}` : '';
+    const limitString = limit ? `&limit=${limit}` : '';
     const request = `/trades/?book=${book}${markerString}${sortString}${limitString}`;
     return api.get({ url: request });
   };

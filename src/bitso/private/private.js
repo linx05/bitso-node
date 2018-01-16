@@ -18,6 +18,14 @@ function PrivateApi(api) {
   const fundingDestination = () => {
     return get({ url: '/funding_destination' });
   };
+  const Ledger = ({ ledger, marker, sort, limit } = {}) => {
+    const ledgerString = ledger ? `/${ledger}?` : '/?';
+    const markerString = marker ? `&marker=${marker}` : '';
+    const sortString = sort ? `&sort=${sort}` : '';
+    const limitString = limit ? `&limit=${limit}` : '';
+    const request = `/ledger/${ledgerString}${markerString}${sortString}${limitString}`;
+    return get({ url: request });
+  };
 
 
   return {
@@ -26,6 +34,7 @@ function PrivateApi(api) {
     bankCodes,
     fees,
     fundingDestination,
+    ledger: Ledger,
   };
 }
 
