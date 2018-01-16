@@ -14,10 +14,10 @@ describe('Bitso Private Client Tests', () => {
   const client = privateClient(mockApi);
   it(`Should create an object with "accountStatus", 
   "accountBalance", "bankCodes", "fees", "fundingDestination", "fundings",
-  "ledger", "withdrawals" functions`, () => {
+  "ledger", "lookupOrders", "openTrades", "withdrawals" functions`, () => {
       expect(client).to.have.keys(
         'accountStatus', 'accountBalance', 'bankCodes', 'fees', 'fundingDestination', 'fundings',
-        'ledger', 'orderTrades', 'userTrades', 'withdrawals',
+        'ledger', 'lookupOrders', 'openOrders', 'orderTrades', 'userTrades', 'withdrawals',
       );
       expect(client.accountStatus).to.be.a('function');
       expect(client.accountBalance).to.be.a('function');
@@ -26,12 +26,14 @@ describe('Bitso Private Client Tests', () => {
       expect(client.fundingDestination).to.be.a('function');
       expect(client.fundings).to.be.a('function');
       expect(client.ledger).to.be.a('function');
+      expect(client.lookupOrders).to.be.a('function');
+      expect(client.openOrders).to.be.a('function');
       expect(client.orderTrades).to.be.a('function');
       expect(client.userTrades).to.be.a('function');
       expect(client.withdrawals).to.be.a('function');
     });
-  it(`"accountStatus", "accountBalance", "bankCodes", "fees", "fundingDestination", "fundings",
-    "ledger", "withdraws" functions should return a Promise`, () => {
+  it(`"accountStatus", "accountBalance", "bankCodes", "fees", "fundingDestination", "fundings", 
+  "ledger", "lookupOrders", "openTrades", "orderTrades", "withdraws" functions should return a Promise`, () => {
       expect(client.accountStatus()).to.be.a('promise');
       expect(client.accountBalance()).to.be.a('promise');
       expect(client.bankCodes()).to.be.a('promise');
@@ -39,6 +41,8 @@ describe('Bitso Private Client Tests', () => {
       expect(client.fundingDestination()).to.be.a('promise');
       expect(client.fundings()).to.be.a('promise');
       expect(client.ledger()).to.be.a('promise');
+      expect(client.orderTrades()).to.be.a('promise');
+      expect(client.openOrders()).to.be.a('promise');
       expect(client.orderTrades()).to.be.a('promise');
       expect(client.userTrades()).to.be.a('promise');
       expect(client.withdrawals()).to.be.a('promise');

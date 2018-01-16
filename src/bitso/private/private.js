@@ -39,6 +39,18 @@ function PrivateApi(api) {
     const request = `/ledger/${ledgerString}${markerString}${sortString}${limitString}`;
     return get({ url: request });
   };
+  const lookupOrders = ({ oid }) => {
+    const oidString = separateOperationItems(oid);
+    return get({ url: `/orders/${oidString}` });
+  };
+  const openOrders = ({ book, marker, sort, limit } = {}) => {
+    const bookString = book ? `/${book}?` : '/?';
+    const markerString = marker ? `&marker=${marker}` : '';
+    const sortString = sort ? `&sort=${sort}` : '';
+    const limitString = limit ? `&limit=${limit}` : '';
+    const request = `/open_orders/${bookString}${markerString}${sortString}${limitString}`;
+    return get({ url: request });
+  };
   const orderTrades = ({ oid } = {}) => {
     const oidString = separateOperationItems(oid);
     return get({ url: `/order_trades/${oidString}` });
@@ -65,6 +77,8 @@ function PrivateApi(api) {
     fundings,
     fundingDestination,
     ledger: Ledger,
+    lookupOrders,
+    openOrders,
     orderTrades,
     userTrades,
     withdrawals,
