@@ -7,7 +7,7 @@ A Node.js API Wrapper for the [Bitso REST API](https://bitso.com/api_info). Plea
 ```javascript
 var BitsoNode = require('bitso-node-api');
 // Key and Secret are only necessary if you use the Private REST API
-var bitsoClient = new BitsoNode({ 
+var bitsoClient = BitsoNode.BitsoClient({ 
   key: '1234',
   secret: 'secret',
  });
@@ -26,7 +26,7 @@ bitsoClient
 ```javascript
 const BitsoNode = require('bitso-node-api');
 
-const client = new BitsoNode({
+const client = BitsoNode.BitsoClient({
   key: "KEY",
   secret: "SECRET",
 });
@@ -51,7 +51,7 @@ information you need to create the API client with the `authorizeMovements` para
 ```javascript
 const BitsoNode = require('bitso-node-api');
 
-const client = new BitsoNode({
+const client = BitsoNode.BitsoClient({
   key: "KEY",
   secret: "SECRET",
   authorizeMovements: true
